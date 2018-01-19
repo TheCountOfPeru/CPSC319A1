@@ -36,17 +36,36 @@ public class Assign1 {
 			data[j] = tmp;
 		}
 	}
-	public static void merge(int[] array1,int first, int last) {
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.495
+	 */
+	public static void merge(int[] array1, int first, int last) {
 		int mid = (first + last) / 2;
 		int i1 = 0;
 		int i2 = first;
 		int i3 = mid + 1;
-		while() { both left and right subarrays of array1 contain elements
-		if (array1[i2] < array1[i3])
-		temp[i1++] = array1[i2++];
-		else temp[i1++] = array1[i3++];
-		load into temp the remaining elements of array1;
-		load to array1 the content of temp;
+		int[] temp = new int[array1.length];
+		while(i2 < mid && i3 < last) { //both left and right subarrays of array1 contain elements
+		if (array1[i2] < array1[i3]) {
+			temp[i1++] = array1[i2++];
+		}
+		else {
+			temp[i1++] = array1[i3++];
+		//load into temp the remaining elements of array1;
+		//load to array1 the content of temp;
+			}
+		}
+	}
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.496
+	 */
+	public static void mergesort (int[] data, int first, int last) {
+	if (first < last){
+		int mid = (first + last) / 2;
+		mergesort(data, first, mid);
+		mergesort(data, mid+1, last);
+		merge(data, first, last);
+		}
 	}
 	public static void main(String[] args) {
 		int size;
@@ -58,7 +77,7 @@ public class Assign1 {
 		long startTime; 
 		long stopTime;
 		long elapsedTime;
-		String[] fargs = { "random", "10000", "insertion", "out.txt" };
+		String[] fargs = { "random", "100000", "merge", "out.txt" };
 		//System.out.println(args.length);
 		//if(args.length != 6) {
 		//	System.out.println("Incorrect number of inputs. Quitting...");
@@ -100,7 +119,7 @@ public class Assign1 {
 			insertionsort(numbers);
 		}
 		else if(alg.equals("merge")) {
-			
+			mergesort(numbers, 0, numbers.length - 1);
 		}
 		else if(alg.equals("quick")) {
 	
