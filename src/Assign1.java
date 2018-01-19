@@ -1,14 +1,64 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Assign1 {
-
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.474
+	 */
+	public static void selectionsort(int[] data) {
+		int i,j,least;
+		for (i = 0; i < data.length-1; i++) {
+		for (j = i+1, least = i; j < data.length; j++)
+		if (((Comparable<Integer>)data[j]).compareTo(data[least]) < 0)
+		least = j;
+		if(i != least)
+		swap(data,least,i);
+			}
+		}
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.474
+	 */
+	public static void swap(int[] a, int e1, int e2) {
+		int tmp = a[e1]; 
+		a[e1] = a[e2]; 
+		a[e2] = tmp;
+		}
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.471
+	 */
+	public static void insertionsort(int[] data) {
+		for (int i = 1,j; i < data.length; i++) {
+			int tmp = data[i];
+			for (j = i; j > 0 && tmp < data[j-1]; j--)
+				data[j] = data[j-1];
+			data[j] = tmp;
+		}
+	}
+	public static void merge(int[] array1,int first, int last) {
+		int mid = (first + last) / 2;
+		int i1 = 0;
+		int i2 = first;
+		int i3 = mid + 1;
+		while() { both left and right subarrays of array1 contain elements
+		if (array1[i2] < array1[i3])
+		temp[i1++] = array1[i2++];
+		else temp[i1++] = array1[i3++];
+		load into temp the remaining elements of array1;
+		load to array1 the content of temp;
+	}
 	public static void main(String[] args) {
 		int size;
 		String order;
 		String alg;
 		String output;
 		int[] numbers;
-		String[] fargs = { "random", "10", "selection", "out.txt" };
+		PrintWriter writer;
+		long startTime; 
+		long stopTime;
+		long elapsedTime;
+		String[] fargs = { "random", "10000", "insertion", "out.txt" };
 		//System.out.println(args.length);
 		//if(args.length != 6) {
 		//	System.out.println("Incorrect number of inputs. Quitting...");
@@ -41,10 +91,33 @@ public class Assign1 {
 			}
 		}
 		
-		
-		for(int i = 0; i < size; i++) {
-			System.out.println(numbers[i]);
+		//call to some sort function
+		startTime = System.currentTimeMillis(); //timing code adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
+		if(alg.equals("selection")) {
+			selectionsort(numbers);
 		}
+		else if(alg.equals("insertion")) {
+			insertionsort(numbers);
+		}
+		else if(alg.equals("merge")) {
+			
+		}
+		else if(alg.equals("quick")) {
+	
+		}
+		stopTime = System.currentTimeMillis();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime + "ms.");
+		try {
+			writer = new PrintWriter(output);
+			writer.println(Arrays.toString(numbers)); //Adapted from https://stackoverflow.com/questions/409784/whats-the-simplest-way-to-print-a-java-array
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 
 	}
