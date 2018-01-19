@@ -67,6 +67,37 @@ public class Assign1 {
 		merge(data, first, last);
 		}
 	}
+	public static void quicksort(int[] data, int first, int last) {
+		int lower = first + 1, upper = last;
+		swap(data,first,(first+last)/2);
+		Comparable<Integer> bound = (Comparable<Integer>)data[first];
+		while (lower <= upper) {
+			while (bound.compareTo(data[lower]) > 0) {
+				lower++;
+		}
+		while (bound.compareTo(data[upper]) < 0) 
+			upper--;
+		if (lower < upper)
+			swap(data,lower++,upper--);
+		else lower++;
+		}
+		swap(data,upper,first);
+		if (first < upper-1)
+		quicksort(data,first,upper-1);
+		if (upper+1 < last)
+		quicksort(data,upper+1,last);
+		}
+	public static void sort(int[] data) {
+		if (data.length < 2)
+			return;
+		int max = 0;
+		// find the largest element and put it at the end of data;
+		for (int i = 1; i < data.length; i++)
+		if (((Comparable<Integer>)data[max]).compareTo(data[i]) < 0)
+			max = i;
+		swap(data,data.length-1,max); 		// largest el is now in its
+		quicksort(data,0,data.length-2); 	// final position;
+		}
 	public static void main(String[] args) {
 		int size;
 		String order;
@@ -77,7 +108,7 @@ public class Assign1 {
 		long startTime; 
 		long stopTime;
 		long elapsedTime;
-		String[] fargs = { "random", "100000", "merge", "out.txt" };
+		String[] fargs = { "descending", "1000000", "quick", "out.txt" };
 		//System.out.println(args.length);
 		//if(args.length != 6) {
 		//	System.out.println("Incorrect number of inputs. Quitting...");
@@ -94,7 +125,7 @@ public class Assign1 {
 		numbers = new int[size]; 	//adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
 		if(order.equals("ascending")) {
 			for(int i = 0; i < size; i++) {
-				numbers[i] = i + 1; //add 1 so that 0 is not an element so that this array matches the
+				numbers[i] = i + 1; //added 1 so that 0 is not an element so that this array matches the
 									//descending array in reverse
 			}
 		}
@@ -122,7 +153,7 @@ public class Assign1 {
 			mergesort(numbers, 0, numbers.length - 1);
 		}
 		else if(alg.equals("quick")) {
-	
+			sort(numbers);
 		}
 		stopTime = System.currentTimeMillis();
 		elapsedTime = stopTime - startTime;
