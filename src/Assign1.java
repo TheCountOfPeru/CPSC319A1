@@ -2,10 +2,18 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Random;
-
+/*
+ * This is the main class for this program for CPSC 319 Assignment 1. It is meant to accept arguments
+ * from the command line to test 4 types of sorting methods under 3 different conditions of how an
+ * array is sorted. The main outputs are the run time of specified methods and a text file containing 
+ * the sorted arrays elements.
+ * @author Jonathan Yee
+ * @version 1.0
+ * @since 
+ */
 public class Assign1 {
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.474
+	 * Adpated from Data Structures and Algorithms 2nd Edition, Drozdek p.474
 	 */
 	public static void selectionsort(int[] data) {
 		int i,j,least;
@@ -18,7 +26,7 @@ public class Assign1 {
 			}
 		}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.474
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.474
 	 */
 	public static void swap(int[] a, int e1, int e2) {
 		int tmp = a[e1]; 
@@ -26,7 +34,7 @@ public class Assign1 {
 		a[e2] = tmp;
 		}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.471
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.471
 	 */
 	public static void insertionsort(int[] data) {
 		for (int i = 1,j; i < data.length; i++) {
@@ -37,7 +45,7 @@ public class Assign1 {
 		}
 	}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.495
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.495
 	 */
 	public static void merge(int[] array1, int first, int last) {
 		int mid = (first + last) / 2;
@@ -57,7 +65,7 @@ public class Assign1 {
 		}
 	}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.496
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.496
 	 */
 	public static void mergesort (int[] data, int first, int last) {
 	if (first < last){
@@ -68,7 +76,7 @@ public class Assign1 {
 		}
 	}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.489
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.489
 	 */
 	public static void quicksort(int[] data, int first, int last) {
 		int lower = first + 1, upper = last;
@@ -91,9 +99,9 @@ public class Assign1 {
 		quicksort(data,upper+1,last);
 		}
 	/*
-	 * From Data Structures and Algorithms 2nd Edition p.489
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.489
 	 */
-	public static void sort(int[] data) {
+	public static void quick_helper(int[] data) {
 		if (data.length < 2)
 			return;
 		int max = 0;
@@ -115,17 +123,29 @@ public class Assign1 {
 		long stopTime;
 		long elapsedTime;
 		String[] fargs = { "descending", "1000000", "quick", "out.txt" };
-		//System.out.println(args.length);
-		//if(args.length != 6) {
-		//	System.out.println("Incorrect number of inputs. Quitting...");
-		//}
-				
+		//check if correct number of arguments were given
+		if(args.length != 6) {
+			System.out.println("Incorrect number of inputs. Quitting...");
+			System.exit(-1);
+		}		
 		size = Integer.parseInt(fargs[1]);
 		//check if negative
+		if(size < 0) {
+			System.out.println("Illegal array size. Must be a positive integer. Quitting...");
+			System.exit(-1);
+		}
 		order = fargs[0];
 		//check if contains proper choices
+		if(!order.equals("ascending")||!order.equals("descending")||!order.equals("random")) {
+			System.out.println("Unable to identify order used in test array. Quitting...");
+			System.exit(-1);
+		}
 		alg = fargs[2];
 		//check if contains proper choices
+		if(!order.equals("selection")||!order.equals("insertion")||!order.equals("merge")||!order.equals("quick")) {
+			System.out.println("Unable to identify sort type. Quitting...");
+			System.exit(-1);
+		}
 		output = fargs[3];
 		
 		numbers = new int[size]; 	//adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
@@ -159,7 +179,7 @@ public class Assign1 {
 			mergesort(numbers, 0, numbers.length - 1);
 		}
 		else if(alg.equals("quick")) {
-			sort(numbers);
+			quick_helper(numbers);
 		}
 		stopTime = System.currentTimeMillis();
 		elapsedTime = stopTime - startTime;
@@ -171,11 +191,5 @@ public class Assign1 {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-
 	}
-
 }
