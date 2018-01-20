@@ -67,15 +67,18 @@ public class Assign1 {
 		merge(data, first, last);
 		}
 	}
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.489
+	 */
 	public static void quicksort(int[] data, int first, int last) {
 		int lower = first + 1, upper = last;
 		swap(data,first,(first+last)/2);
 		Comparable<Integer> bound = (Comparable<Integer>)data[first];
 		while (lower <= upper) {
-			while (bound.compareTo(data[lower]) > 0) {
+			while (bound.compareTo(data[lower]) < 0) {
 				lower++;
 		}
-		while (bound.compareTo(data[upper]) < 0) 
+		while (bound.compareTo(data[upper]) > 0) 
 			upper--;
 		if (lower < upper)
 			swap(data,lower++,upper--);
@@ -87,6 +90,9 @@ public class Assign1 {
 		if (upper+1 < last)
 		quicksort(data,upper+1,last);
 		}
+	/*
+	 * From Data Structures and Algorithms 2nd Edition p.489
+	 */
 	public static void sort(int[] data) {
 		if (data.length < 2)
 			return;
