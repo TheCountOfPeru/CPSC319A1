@@ -9,11 +9,11 @@ import java.util.Random;
  * the sorted arrays elements.
  * @author Jonathan Yee
  * @version 1.0
- * @since 
+ * @since Jan 20, 2018
  */
 public class Assign1 {
 	/*
-	 * Adpated from Data Structures and Algorithms 2nd Edition, Drozdek p.474
+	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.474
 	 */
 	public static void selectionsort(int[] data) {
 		int i,j,least;
@@ -83,10 +83,10 @@ public class Assign1 {
 		swap(data,first,(first+last)/2);
 		Comparable<Integer> bound = (Comparable<Integer>)data[first];
 		while (lower <= upper) {
-			while (bound.compareTo(data[lower]) < 0) {
+			while (bound.compareTo(data[lower]) > 0) {
 				lower++;
 		}
-		while (bound.compareTo(data[upper]) > 0) 
+		while (bound.compareTo(data[upper]) < 0) 
 			upper--;
 		if (lower < upper)
 			swap(data,lower++,upper--);
@@ -121,33 +121,34 @@ public class Assign1 {
 		PrintWriter writer;
 		long startTime; 
 		long stopTime;
-		long elapsedTime;
-		String[] fargs = { "descending", "1000000", "quick", "out.txt" };
+		double elapsedTime;
 		//check if correct number of arguments were given
-		if(args.length != 6) {
+		if(args.length != 4) {
 			System.out.println("Incorrect number of inputs. Quitting...");
 			System.exit(-1);
 		}		
-		size = Integer.parseInt(fargs[1]);
-		//check if negative
+		size = Integer.parseInt(args[1]);
+		//check if negative array size given
 		if(size < 0) {
 			System.out.println("Illegal array size. Must be a positive integer. Quitting...");
 			System.exit(-1);
 		}
-		order = fargs[0];
+		order = args[0];
 		//check if contains proper choices
-		if(!order.equals("ascending")||!order.equals("descending")||!order.equals("random")) {
-			System.out.println("Unable to identify order used in test array. Quitting...");
+		if(!order.equals("ascending")&&!order.equals("descending")&&!order.equals("random")){
+			System.out.println((!order.equals("ascending"))&&(!order.equals("descending")));
+			System.out.println("Unable to identify order used for the test. Quitting...");
 			System.exit(-1);
 		}
-		alg = fargs[2];
+		alg = args[2];
 		//check if contains proper choices
-		if(!order.equals("selection")||!order.equals("insertion")||!order.equals("merge")||!order.equals("quick")) {
+		if(!alg.equals("selection")&&!alg.equals("insertion")&&!alg.equals("merge")&&!alg.equals("quick")) 
+		{
+			System.out.println(alg);
 			System.out.println("Unable to identify sort type. Quitting...");
 			System.exit(-1);
 		}
-		output = fargs[3];
-		
+		output = args[3];
 		numbers = new int[size]; 	//adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
 		if(order.equals("ascending")) {
 			for(int i = 0; i < size; i++) {
@@ -166,8 +167,7 @@ public class Assign1 {
 				numbers[i] = generator.nextInt(size);
 			}
 		}
-		
-		//call to some sort function
+		//call to some sort function, start timing it
 		startTime = System.currentTimeMillis(); //timing code adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
 		if(alg.equals("selection")) {
 			selectionsort(numbers);
@@ -183,13 +183,15 @@ public class Assign1 {
 		}
 		stopTime = System.currentTimeMillis();
 		elapsedTime = stopTime - startTime;
-		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime + "ms.");
+		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000 + " seconds.");
 		try {
 			writer = new PrintWriter(output);
 			writer.println(Arrays.toString(numbers)); //Adapted from https://stackoverflow.com/questions/409784/whats-the-simplest-way-to-print-a-java-array
 			writer.close();
 		} catch (FileNotFoundException e) {
+			System.out.println("Unable to access file to print sorted array contents.");
 			e.printStackTrace();
 		}
+		System.out.println("Test complete. Exiting.");
 	}
 }
