@@ -1,0 +1,3 @@
+java Assign1 descending 1000000 quick out.txt
+java Assign1 ascending 1000000 quick out.txt
+java Assign1 random 1000000 quick out.txt

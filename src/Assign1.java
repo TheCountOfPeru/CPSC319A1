@@ -16,14 +16,21 @@ public class Assign1 {
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.474
 	 */
 	public static void selectionsort(int[] data) {
-		int i,j,least;
-		for (i = 0; i < data.length-1; i++) {
-		for (j = i+1, least = i; j < data.length; j++)
-		if (((Comparable<Integer>)data[j]).compareTo(data[least]) < 0)
-		least = j;
-		if(i != least)
-		swap(data,least,i);
-			}
+		int i = 0, j, least;
+		while(i < data.length - 1) {
+			j = i + 1;
+			least = i;
+			while(j < data.length) {
+					if (((Comparable<Integer>)data[j]).compareTo(data[least]) < 0) {
+					least = j;
+					}
+				if(i != least) {
+					swap(data,least,i);
+					}
+				j++;
+				}// end of inner loop
+			i++;
+			}//end of outer loop
 		}
 	/*
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.474
@@ -37,12 +44,17 @@ public class Assign1 {
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.471
 	 */
 	public static void insertionsort(int[] data) {
-		for (int i = 1,j; i < data.length; i++) {
+		int i = 1, j;
+		while(i < data.length) {
+			j = i;
 			int tmp = data[i];
-			for (j = i; j > 0 && tmp < data[j-1]; j--)
+			while(j > 0 && tmp < data[j-1]) {
 				data[j] = data[j-1];
+			j--;
+			}//end of inner loop
 			data[j] = tmp;
-		}
+			i++;
+		}//end of outer loop
 	}
 	/*
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.495
@@ -106,9 +118,11 @@ public class Assign1 {
 			return;
 		int max = 0;
 		// find the largest element and put it at the end of data;
-		for (int i = 1; i < data.length; i++)
-		if (((Comparable<Integer>)data[max]).compareTo(data[i]) < 0)
-			max = i;
+		for (int i = 1; i < data.length; i++) {
+			if (((Comparable<Integer>)data[max]).compareTo(data[i]) < 0){
+				max = i;
+			}
+		}
 		swap(data,data.length-1,max); 		// largest el is now in its
 		quicksort(data,0,data.length-2); 	// final position;
 		}
