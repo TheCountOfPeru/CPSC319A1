@@ -21,7 +21,7 @@ public class Assign1 {
 			j = i + 1;
 			least = i;
 			while(j < data.length) {
-					if (((Comparable<Integer>)data[j]).compareTo(data[least]) < 0) {
+					if (data[j] < data[least]) {
 					least = j;
 					}
 				if(i != least) {
@@ -93,12 +93,12 @@ public class Assign1 {
 	public static void quicksort(int[] data, int first, int last) {
 		int lower = first + 1, upper = last;
 		swap(data,first,(first+last)/2);
-		Comparable<Integer> bound = (Comparable<Integer>)data[first];
+		int bound = data[first];
 		while (lower <= upper) {
-			while (bound.compareTo(data[lower]) > 0) {
+			while (bound > data[lower]) {
 				lower++;
 		}
-		while (bound.compareTo(data[upper]) < 0) 
+		while (bound < data[upper]) 
 			upper--;
 		if (lower < upper)
 			swap(data,lower++,upper--);
@@ -113,13 +113,13 @@ public class Assign1 {
 	/*
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.489
 	 */
-	public static void quick_helper(int[] data) {
+	public static void quicksort(int[] data) {
 		if (data.length < 2)
 			return;
 		int max = 0;
 		// find the largest element and put it at the end of data;
 		for (int i = 1; i < data.length; i++) {
-			if (((Comparable<Integer>)data[max]).compareTo(data[i]) < 0){
+			if (data[max] < data[i]){
 				max = i;
 			}
 		}
@@ -193,7 +193,7 @@ public class Assign1 {
 			mergesort(numbers, 0, numbers.length - 1);
 		}
 		else if(alg.equals("quick")) {
-			quick_helper(numbers);
+			quicksort(numbers);
 		}
 		stopTime = System.currentTimeMillis();
 		elapsedTime = stopTime - startTime;
