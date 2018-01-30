@@ -135,7 +135,6 @@ public class Assign1 {
 		int[] numbers;
 		PrintWriter writer;
 		long startTime; 
-		//long stopTime;
 		long elapsedTime;
 		//check if correct number of arguments were given
 		if(args.length != 4) {
@@ -183,7 +182,7 @@ public class Assign1 {
 			}
 		}
 		//call to some sort function, start timing it
-		startTime = System.nanoTime(); //timing code adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
+		startTime = System.nanoTime(); 
 		if(alg.equals("selection")) {
 			selectionsort(numbers);
 		}
@@ -196,7 +195,6 @@ public class Assign1 {
 		else if(alg.equals("quick")) {
 			quicksort(numbers);
 		}
-		//stopTime = System.currentTimeMillis();
 		elapsedTime = System.nanoTime() - startTime;
 		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000000000.0 + " seconds.");
 		try {
