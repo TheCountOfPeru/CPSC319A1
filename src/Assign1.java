@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 /*
  * This is the main class for this program for CPSC 319 Assignment 1. It is meant to accept arguments
  * from the command line to test 4 types of sorting methods under 3 different conditions of how an
@@ -134,8 +135,8 @@ public class Assign1 {
 		int[] numbers;
 		PrintWriter writer;
 		long startTime; 
-		long stopTime;
-		double elapsedTime;
+		//long stopTime;
+		long elapsedTime;
 		//check if correct number of arguments were given
 		if(args.length != 4) {
 			System.out.println("Incorrect number of inputs. Quitting...");
@@ -182,7 +183,7 @@ public class Assign1 {
 			}
 		}
 		//call to some sort function, start timing it
-		startTime = System.currentTimeMillis(); //timing code adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
+		startTime = System.nanoTime(); //timing code adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
 		if(alg.equals("selection")) {
 			selectionsort(numbers);
 		}
@@ -195,9 +196,9 @@ public class Assign1 {
 		else if(alg.equals("quick")) {
 			quicksort(numbers);
 		}
-		stopTime = System.currentTimeMillis();
-		elapsedTime = stopTime - startTime;
-		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000 + " seconds.");
+		//stopTime = System.currentTimeMillis();
+		elapsedTime = System.nanoTime() - startTime;
+		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000000000.0 + " seconds.");
 		try {
 			writer = new PrintWriter(output);
 			writer.println(Arrays.toString(numbers)); //Adapted from https://stackoverflow.com/questions/409784/whats-the-simplest-way-to-print-a-java-array
