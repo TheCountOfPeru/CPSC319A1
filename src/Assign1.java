@@ -199,6 +199,7 @@ public class Assign1 {
 		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000000000.0 + " seconds.");
 		try {
 			writer = new PrintWriter(output);
+			writer.println(elapsedTime/1000000000.0);
 			writer.println(Arrays.toString(numbers)); //Adapted from https://stackoverflow.com/questions/409784/whats-the-simplest-way-to-print-a-java-array
 			writer.close();
 		} catch (FileNotFoundException e) {
