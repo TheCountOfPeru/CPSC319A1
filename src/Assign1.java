@@ -58,34 +58,44 @@ public class Assign1 {
 		}//end of outer loop
 	}
 	/*
-	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.495
+	 * From https://gist.github.com/cocodrips/5937371
 	 */
-	public static void merge(int[] array1, int first, int last) {
-		int mid = (first + last) / 2;
-		int i1 = 0;
-		int i2 = first;
-		int i3 = mid + 1;
-		int[] temp = new int[array1.length];
-		while(i2 < mid && i3 < last) { //both left and right subarrays of array1 contain elements
-		if (array1[i2] < array1[i3]) {
-			temp[i1++] = array1[i2++];
-		}
-		else {
-			temp[i1++] = array1[i3++];
-		//load into temp the remaining elements of array1;
-		//load to array1 the content of temp;
-			}
-		}
+	public static void mergeSort(int[] array, int low, int high){
+		if(low < high){
+			int middle = (low + high) / 2;
+			mergeSort(array, low, middle);
+			mergeSort(array, middle+1, high);
+			merge(array, low, middle, high);
+		}	
 	}
 	/*
-	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.496
+	 * From https://gist.github.com/cocodrips/5937371
 	 */
-	public static void mergesort (int[] data, int first, int last) {
-	if (first < last){
-		int mid = (first + last) / 2;
-		mergesort(data, first, mid);
-		mergesort(data, mid+1, last);
-		merge(data, first, last);
+	public static void merge(int[] array, int low, int middle, int high){
+		int[] helper = new int[array.length];
+		for (int i = low; i <= high; i++) {
+			helper[i] = array[i];
+		}
+		
+		int helperLeft = low;
+		int helperRight = middle+1;
+		int current = low;
+		
+		while (helperLeft <= middle && helperRight <=high) {
+			if(helper[helperLeft] <= helper[helperRight]){
+				array[current] = helper[helperLeft];
+				helperLeft++;
+				
+			}else{
+				array[current] = helper[helperRight];
+				helperRight++;
+			}
+			current ++;		
+		}
+		
+		int remaining = middle - helperLeft;
+		for (int i = 0; i <= remaining; i++) {
+			array[current+i] = helper[helperLeft+ i];
 		}
 	}
 	/*
@@ -190,7 +200,7 @@ public class Assign1 {
 			insertionsort(numbers);
 		}
 		else if(alg.equals("merge")) {
-			mergesort(numbers, 0, numbers.length - 1);
+			mergeSort(numbers, 0, numbers.length - 1);
 		}
 		else if(alg.equals("quick")) {
 			quicksort(numbers);
