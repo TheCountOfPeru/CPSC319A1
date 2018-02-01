@@ -151,12 +151,18 @@ public class Assign1 {
 			System.out.println("Incorrect number of inputs. Quitting...");
 			System.exit(-1);
 		}		
-		size = Integer.parseInt(args[1]);
-		//check if negative array size given
-		if(size < 0) {
+		//check if negative array size given or is NaN
+		 try {
+			    Integer.parseInt(args[1]);
+			  } catch (NumberFormatException e) {
+			    System.out.println("Array size is not a number. Quitting...");
+			    System.exit(-1);
+			  }
+		if(Integer.parseInt(args[1]) <= 0 ) {
 			System.out.println("Illegal array size. Must be a positive integer. Quitting...");
 			System.exit(-1);
 		}
+		size = Integer.parseInt(args[1]);
 		order = args[0];
 		//check if contains proper choices
 		if(!order.equals("ascending")&&!order.equals("descending")&&!order.equals("random")){
@@ -164,15 +170,16 @@ public class Assign1 {
 			System.out.println("Unable to identify order used for the test. Quitting...");
 			System.exit(-1);
 		}
-		alg = args[2];
+		
 		//check if contains proper choices
-		if(!alg.equals("selection")&&!alg.equals("insertion")&&!alg.equals("merge")&&!alg.equals("quick")) 
+		if(!args[2].equals("selection")&&!args[2].equals("insertion")&&!args[2].equals("merge")&&!args[2].equals("quick")) 
 		{
-			System.out.println(alg);
 			System.out.println("Unable to identify sort type. Quitting...");
 			System.exit(-1);
 		}
+		alg = args[2];
 		output = args[3];
+		
 		numbers = new int[size]; 	//adapted from http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html
 		if(order.equals("ascending")) {
 			for(int i = 0; i < size; i++) {
@@ -206,7 +213,7 @@ public class Assign1 {
 			quicksort(numbers);
 		}
 		elapsedTime = System.nanoTime() - startTime;
-		System.out.println("Time elapsed for " + alg + " sort : " + elapsedTime/1000000000.0 + " seconds.");
+		System.out.println("Time elapsed for " + alg + " sort: " + elapsedTime/1000000000.0 + " seconds.");
 		try {
 			writer = new PrintWriter(output);
 			writer.println(elapsedTime/1000000000.0);
