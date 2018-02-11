@@ -106,20 +106,20 @@ public class Assign1 {
 		swap(data,first,(first+last)/2);
 		int bound = data[first];
 		while (lower <= upper) {
-			while (bound > data[lower]) {
+			while (bound > data[lower])
 				lower++;
-		}
 		while (bound < data[upper]) 
 			upper--;
 		if (lower < upper)
 			swap(data,lower++,upper--);
-		else lower++;
+		else 
+			lower++;
 		}
 		swap(data,upper,first);
 		if (first < upper-1)
-		quicksort(data,first,upper-1);
+			quicksort(data,first,upper-1);
 		if (upper+1 < last)
-		quicksort(data,upper+1,last);
+			quicksort(data,upper+1,last);
 		}
 	/*
 	 * Adapted from Data Structures and Algorithms 2nd Edition, Drozdek p.489
